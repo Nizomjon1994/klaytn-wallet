@@ -46,4 +46,4 @@ def checkTxHashStatus():
 
 
 if __name__ == '__main__':
-    createWalletTest()
+    sendTokenTest()

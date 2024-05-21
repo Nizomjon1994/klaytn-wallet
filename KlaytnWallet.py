@@ -56,10 +56,8 @@ class KlaytnWallet:
     @retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=1, max=10),
            retry=retry_if_exception_type((TransactionNotFound, BlockNotFound, TooManyRequests, ProviderConnectionError,
                                           CannotHandleRequest, ValueError)))
-    def send_klay(self, from_address, to_address, amount):
-        self.validate_address(from_address)
+    def send_klay(self, private_key, to_address, amount):
         self.validate_address(to_address)
-        private_key = self.get_wallet_private_key(from_address)  # get private key from memory for now (later from DB)
         self.validate_private_key(private_key)
         to_address = self.web3.to_checksum_address(to_address)  # convert address for checksum
         account = self.web3.eth.account.from_key(private_key)  # create account obj from private key
@@ -80,10 +78,8 @@ class KlaytnWallet:
     @retry(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=1, max=10),
            retry=retry_if_exception_type((TransactionNotFound, BlockNotFound, TooManyRequests, ProviderConnectionError,
                                           CannotHandleRequest, ValueError)))
-    def send_token(self, from_address, to_address, amount, token_contract_address):
-        self.validate_address(from_address)
+    def send_token(self, private_key, to_address, amount, token_contract_address):
         self.validate_address(to_address)
-        private_key = self.get_wallet_private_key(from_address)  # get private key from memory for now (later from DB)
         self.validate_private_key(private_key)
         self.validate_address(token_contract_address)
         to_address = self.web3.to_checksum_address(to_address)  # convert address for checksum
