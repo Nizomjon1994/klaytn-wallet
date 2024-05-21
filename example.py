@@ -40,10 +40,24 @@ def sendTokenTest():
 
 
 def checkTxHashStatus():
-    tx_hash = '0xe99507befe8af3677a7a8747854f0815afb09eb615c12426f4e6e5e94b0613f5'
+    tx_hash = '0xb84570df72f59feef068826c552594460ab577806c9ec4222dc591a73467be94'
     result = wallet.check_transaction_status(tx_hash)
     print(result.status == 1)  # success
 
+def startIndexing():
+    wallet.start_indexing()
 
 if __name__ == '__main__':
-    sendTokenTest()
+    # 1. deposit wallet
+    createWalletTest()
+    # 2. deposit wallet
+    createWalletTest()
+    # 3. deposit wallet
+    createWalletTest()
+    # start indexing (deposit wallets are being saved in memory in 'wallets')
+
+    # supports KLAY and ERC20
+    wallet.start_indexing()
+
+
+
